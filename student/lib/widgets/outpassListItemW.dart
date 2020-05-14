@@ -17,21 +17,22 @@ class OutpassListItemWidget extends StatelessWidget {
             itemBuilder: (context, idx) {
               return Padding(
                 padding: EdgeInsets.symmetric(
-                  vertical: 2,
-                  horizontal: 0,
+                  vertical: 2.5,
                 ),
                 child: Card(
-                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  elevation: 3,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 5,
                       vertical: 8,
                     ),
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: iconToggler(
                             outpassData[idx].outpassStatus)['color'],
-                        radius: 30,
+                        radius: 25,
                         child: Icon(
                           iconToggler(outpassData[idx].outpassStatus)['icon'],
                           color: Colors.white,
@@ -59,8 +60,8 @@ class OutpassListItemWidget extends StatelessWidget {
             itemCount: outpassData.length,
           )
         : Container(
-          width: double.infinity,
-          child: Column(
+            width: double.infinity,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -73,13 +74,11 @@ class OutpassListItemWidget extends StatelessWidget {
                 ),
                 Container(
                   height: 70,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover
-                  ),
+                  child: Image.asset('assets/images/waiting.png',
+                      fit: BoxFit.cover),
                 ),
               ],
             ),
-        );
+          );
   }
 }

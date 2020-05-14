@@ -41,7 +41,7 @@ class OutpassProvider with ChangeNotifier {
     if (outpassStatus == OutpassStatus.Pending) {
       return {
         'icon': Icons.error_outline,
-        'color': Colors.yellow[600],
+        'color': Colors.yellow[700],
       };
     } else if (outpassStatus == OutpassStatus.Approved) {
       return {
