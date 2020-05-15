@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student/widgets/requestOutpassFormW.dart';
 
 class RequestOutPassScreen extends StatelessWidget {
-  static const routeName = '/request-outpass';
+  static const routeName = '/request-outpass-screen';
 
   @override
   Widget build(BuildContext context) {

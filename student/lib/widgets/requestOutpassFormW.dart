@@ -6,6 +6,7 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:provider/provider.dart';
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
+import 'package:student/screens/placesSearchS.dart';
 
 import '../models/outpassM.dart';
 import '../providers/outpassP.dart';
@@ -16,6 +17,8 @@ const kGoogleApiKey = apiKey;
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class RequestOutpassFormWidget extends StatefulWidget {
+  static const routeName = '/request-outpass-form';
+
   @override
   _RequestOutpassFormWidgetState createState() =>
       _RequestOutpassFormWidgetState();
@@ -130,7 +133,7 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
               ),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
-                onPressed: getLocation,
+                onPressed: () => Navigator.of(context).pushNamed(SearchPlacesScreen.routeName),
                 color: Theme.of(context).errorColor,
               ),
             )
