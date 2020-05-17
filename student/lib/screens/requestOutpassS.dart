@@ -28,7 +28,6 @@ class RequestOutPassScreen extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       body: Container(
-        height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -60,12 +59,14 @@ class RequestOutPassScreen extends StatelessWidget {
                       MediaQuery.of(context).padding.top) *
                   0.02,
             ),
-            Container(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.72,
-              child: RequestOutpassFormWidget(),
+            Flexible(
+              child: Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.72,
+                child: RequestOutpassFormWidget(),
+              ),
             ),
             SizedBox(
               height: (MediaQuery.of(context).size.height -

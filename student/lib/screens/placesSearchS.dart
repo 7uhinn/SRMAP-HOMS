@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:student/screens/requestOutpassS.dart';
 
 import '../apiKey.dart';
-import '../widgets/requestOutpassFormW.dart';
 import '../models/placesM.dart';
 
 class SearchPlacesScreen extends StatefulWidget {
@@ -17,6 +15,7 @@ class SearchPlacesScreen extends StatefulWidget {
 class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
   TextEditingController _searchController = new TextEditingController();
   Timer _throttle;
+  bool _progress;
 
   List<Places> _placesList;
   final List<Places> _initList = [
@@ -29,6 +28,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
   @override
   void initState() {
     super.initState();
+    _progress = false;
     _placesList = _initList;
     _searchController.addListener(_onSearchChanged);
   }
@@ -44,6 +44,10 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
     if (input.isEmpty) {
       return;
     }
+    setState(() {
+      _progress = true;
+    });
+
     String baseURL = 'https://api.tomtom.com/search/2/search';
 
     String request =
@@ -112,6 +116,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
 
     setState(() {
       _placesList = _displayResults;
+      _progress = false;
     });
   }
 
@@ -185,7 +190,16 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
                     controller: _searchController,
                     style: Theme.of(context).textTheme.headline6,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: _progress
+                          ? Container(
+                              height: 2,
+                              width: 2,
+                              padding: EdgeInsets.all(15),
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : Icon(Icons.search),
                     ),
                   ),
                 ),

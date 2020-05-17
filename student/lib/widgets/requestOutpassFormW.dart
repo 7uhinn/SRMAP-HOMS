@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:google_maps_webservice/places.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:provider/provider.dart';
-import 'dart:ffi';
-import 'package:ffi/ffi.dart';
 import 'package:student/models/placesM.dart';
 import 'package:student/screens/placesSearchS.dart';
 
 import '../models/outpassM.dart';
 import '../providers/outpassP.dart';
-import '../apiKey.dart';
-
-const kGoogleApiKey = apiKey;
-
-GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class RequestOutpassFormWidget extends StatefulWidget {
   static const routeName = '/request-outpass-form';
@@ -57,59 +47,6 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
         placeName = update.placeName;
         address = update.address;
       });
-    }
-
-    Future<Null> displayPrediction(Prediction p) async {
-      print(2);
-      if (p != null) {
-        print(3);
-        PlacesDetailsResponse detail =
-            await _places.getDetailsByPlaceId(p.placeId);
-        print(4);
-        //var placeId = p.placeId;
-        double lat = detail.result.geometry.location.lat;
-        double lng = detail.result.geometry.location.lng;
-        List<AddressComponent> placeAddress = detail.result.addressComponents;
-        String temp2 = detail.result.addressComponents[0].longName;
-        print(5);
-        var address = await Geocoder.local
-            .findAddressesFromCoordinates(Coordinates(lat, lng));
-        print(6);
-        print(lat);
-        print(lng);
-        print(address.first.featureName);
-        print(temp2);
-        print(address.first.adminArea);
-        print(address.first.countryCode);
-        print(address.first.locality);
-        print(address.first.subAdminArea);
-        print(address.first.subLocality);
-        print(address.first.thoroughfare);
-        print(address.first.subThoroughfare);
-
-        print(7);
-
-        setState(() {
-          placeName = temp2;
-          // temp = address.first.addressLine;
-          count++;
-        });
-
-        print(8);
-      }
-    }
-
-    void getLocation() async {
-      print(0);
-      Prediction p = await PlacesAutocomplete.show(
-        context: context,
-        apiKey: kGoogleApiKey,
-        mode: Mode.fullscreen,
-      );
-      print(1);
-      displayPrediction(p);
-
-      setState(() {});
     }
 
     return Card(
