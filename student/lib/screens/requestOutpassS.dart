@@ -64,7 +64,7 @@ class RequestOutPassScreen extends StatelessWidget {
                 height: (MediaQuery.of(context).size.height -
                         appBar.preferredSize.height -
                         MediaQuery.of(context).padding.top) *
-                    0.72,
+                    0.70,
                 child: RequestOutpassFormWidget(),
               ),
             ),
@@ -72,7 +72,7 @@ class RequestOutPassScreen extends StatelessWidget {
               height: (MediaQuery.of(context).size.height -
                       appBar.preferredSize.height -
                       MediaQuery.of(context).padding.top) *
-                  0.06,
+                  0.08,
             ),
           ],
         ),

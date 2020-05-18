@@ -45,11 +45,11 @@ class OutpassListItemWidget extends StatelessWidget {
                       ),
                       subtitle: Text(
                         DateFormat.yMMMEd()
-                            .format(outpassData[idx].reqDateTime),
+                            .format(DateTime.parse(outpassData[idx].reqDateTime)),
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                       trailing: Text(
-                        DateFormat.Hm().format(outpassData[idx].reqDateTime),
+                        DateFormat.Hm().format(DateTime.parse(outpassData[idx].reqDateTime)),
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                     ),

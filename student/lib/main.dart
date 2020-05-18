@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: OutpassProvider(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'HOMS',
         theme: ThemeData(
           primarySwatch: Colors.purple,

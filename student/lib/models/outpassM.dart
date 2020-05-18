@@ -1,17 +1,11 @@
-enum OutpassStatus {
-  Pending,
-  Approved,
-  Disapproved,
-}
-
 class Outpass {
   final String outpassID;
   final String regID;
   final String location;
-  final DateTime reqDateTime;
-  final DateTime depDateTime;
-  final DateTime arrDateTime;
-  OutpassStatus outpassStatus = OutpassStatus.Pending;
+  final String reqDateTime;
+  final String depDateTime;
+  final String arrDateTime;
+  String outpassStatus = 'Pending';
 
   Outpass({
     this.outpassID,

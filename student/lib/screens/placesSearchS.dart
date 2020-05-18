@@ -126,7 +126,14 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
         ModalRoute.of(context).settings.arguments as Map<String, Function>;
     final returnPlace = routeArgs['function'];
 
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
     _selectPlace(String pT, String pS) {
+      if (!currentFocus.hasPrimaryFocus) {
+        setState( () {
+          currentFocus.unfocus();
+        });
+      }
       returnPlace(pT, pS);
       Navigator.of(context).pop();
     }
