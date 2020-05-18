@@ -7,33 +7,33 @@ import '../models/outpassM.dart';
 
 class OutpassProvider with ChangeNotifier {
   List<Outpass> _outpassData = [
-    Outpass(
-      outpassID: 'o1',
-      regID: 'AP17110010068',
-      location: 'Vijayawada',
-      reqDateTime: DateTime.now().toString(),
-      depDateTime: DateTime.parse('2020-05-13 08:18:04Z').toString(),
-      arrDateTime: DateTime.parse('2020-05-13 19:18:04Z').toString(),
-      outpassStatus: 'Pending',
-    ),
-    Outpass(
-      outpassID: 'o2',
-      regID: 'AP17110010068',
-      location: 'Jabalpur',
-      reqDateTime: DateTime.now().toString(),
-      depDateTime: DateTime.parse('2020-05-10 11:18:04Z').toString(),
-      arrDateTime: DateTime.parse('2020-05-15 13:18:04Z').toString(),
-      outpassStatus: 'Disapproved',
-    ),
-    Outpass(
-      outpassID: 'o3',
-      regID: 'AP17110010068',
-      location: 'Guntur',
-      reqDateTime: DateTime.now().toString(),
-      depDateTime: DateTime.parse('2020-05-12 10:18:04Z').toString(),
-      arrDateTime: DateTime.parse('2020-05-12 18:18:04Z').toString(),
-      outpassStatus: 'Approved',
-    ),
+  //   Outpass(
+  //     outpassID: 'o1',
+  //     regID: 'AP17110010068',
+  //     location: 'Vijayawada',
+  //     reqDateTime: DateTime.now().toString(),
+  //     depDateTime: DateTime.parse('2020-05-13 08:18:04Z').toString(),
+  //     arrDateTime: DateTime.parse('2020-05-13 19:18:04Z').toString(),
+  //     outpassStatus: 'Pending',
+  //   ),
+  //   Outpass(
+  //     outpassID: 'o2',
+  //     regID: 'AP17110010068',
+  //     location: 'Jabalpur',
+  //     reqDateTime: DateTime.now().toString(),
+  //     depDateTime: DateTime.parse('2020-05-10 11:18:04Z').toString(),
+  //     arrDateTime: DateTime.parse('2020-05-15 13:18:04Z').toString(),
+  //     outpassStatus: 'Disapproved',
+  //   ),
+  //   Outpass(
+  //     outpassID: 'o3',
+  //     regID: 'AP17110010068',
+  //     location: 'Guntur',
+  //     reqDateTime: DateTime.now().toString(),
+  //     depDateTime: DateTime.parse('2020-05-12 10:18:04Z').toString(),
+  //     arrDateTime: DateTime.parse('2020-05-12 18:18:04Z').toString(),
+  //     outpassStatus: 'Approved',
+  //   ),
   ];
 
   List<Outpass> get outpassData {
@@ -59,19 +59,44 @@ class OutpassProvider with ChangeNotifier {
     }
   }
 
-  Future<void> reqOutpassFunction(Outpass o) {
+  Future<void> fetchOutpassDataFunction() async {
     const baseURL = 'https://srmap-homs.firebaseio.com/outpass.json';
-    return http
-        .post(baseURL,
-            body: json.encode({
-              'regID': o.regID,
-              'location': o.location,
-              'reqDateTime': o.reqDateTime,
-              'depDateTime': o.depDateTime,
-              'arrDateTime': o.arrDateTime,
-              'outpassStatus': o.outpassStatus
-            }))
-        .then((response) {
+    try {
+      final response = await http.get(baseURL);
+      final data = json.decode(response.body) as Map<String, dynamic>;
+      final List<Outpass> dataList = [];
+      data.forEach((id, value) {
+        dataList.insert(
+            0,
+            Outpass(
+              outpassID: id,
+              location: value['location'],
+              regID: value['regID'],
+              arrDateTime: value['arrDateTime'],
+              depDateTime: value['depDateTime'],
+              reqDateTime: value['reqDateTime'],
+              outpassStatus: value['outpassStatus'],
+            ));
+      });
+      _outpassData = dataList;
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  Future<void> reqOutpassFunction(Outpass o) async {
+    const baseURL = 'https://srmap-homs.firebaseio.com/outpass.json';
+    try {
+      final response = await http.post(baseURL,
+          body: json.encode({
+            'regID': o.regID,
+            'location': o.location,
+            'reqDateTime': o.reqDateTime,
+            'depDateTime': o.depDateTime,
+            'arrDateTime': o.arrDateTime,
+            'outpassStatus': o.outpassStatus
+          }));
       final newOutpass = Outpass(
         outpassID: json.decode(response.body)['name'],
         regID: o.regID,
@@ -84,9 +109,9 @@ class OutpassProvider with ChangeNotifier {
 
       _outpassData.insert(0, newOutpass);
       notifyListeners();
-    }).catchError((error) {
+    } catch (error) {
       print(error);
       throw error;
-    });
+    }
   }
 }

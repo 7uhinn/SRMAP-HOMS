@@ -44,12 +44,13 @@ class OutpassListItemWidget extends StatelessWidget {
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       subtitle: Text(
-                        DateFormat.yMMMEd()
-                            .format(DateTime.parse(outpassData[idx].reqDateTime)),
+                        DateFormat.yMMMEd().format(
+                            DateTime.parse(outpassData[idx].reqDateTime)),
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                       trailing: Text(
-                        DateFormat.Hm().format(DateTime.parse(outpassData[idx].reqDateTime)),
+                        DateFormat.Hm().format(
+                            DateTime.parse(outpassData[idx].reqDateTime)),
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
@@ -67,7 +68,11 @@ class OutpassListItemWidget extends StatelessWidget {
               children: [
                 Text(
                   'No outpasses requested yet!',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: TextStyle(
+                    fontFamily: 'Raleway',
+                    fontSize: 17,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(
                   height: 40,

@@ -1,8 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:student/screens/requestOutpassS.dart';
+import 'package:provider/provider.dart';
+import 'package:student/providers/outpassP.dart';
+
+import './requestOutpassS.dart';
 import '../widgets/outpassListItemW.dart';
 
-class OutpassListScreen extends StatelessWidget {
+class OutpassListScreen extends StatefulWidget {
+  @override
+  _OutpassListScreenState createState() => _OutpassListScreenState();
+}
+
+class _OutpassListScreenState extends State<OutpassListScreen> {
+  bool _isInit = true;
+  bool _progress = true;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      Provider.of<OutpassProvider>(context)
+          .fetchOutpassDataFunction()
+          .then((_) {
+        _progress = false;
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +72,21 @@ class OutpassListScreen extends StatelessWidget {
           left: 10,
           bottom: 3,
         ),
-        child: OutpassListItemWidget(),
+        child: _progress
+            ? Container(
+                height: double.infinity,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+              )
+            : OutpassListItemWidget(),
       ),
     );
   }

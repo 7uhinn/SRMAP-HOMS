@@ -249,7 +249,7 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
       });
     }
 
-    _submitForm() {
+    Future<void> _submitForm() async {
       setState(() {
         _progress = true;
       });
@@ -279,7 +279,7 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
               ),
             ),
             content: Text(
-              'Something went wrong!',
+              'Something went wrong! Check your internet connection.',
               style: TextStyle(
                 fontFamily: 'Montserrat',
               ),
@@ -288,10 +288,6 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
               FlatButton(
                 onPressed: () {
                   Navigator.of(ctx).pop();
-                  setState(() {
-                    _progress = false;
-                  });
-                  Navigator.of(context).pop();
                 },
                 child: Text(
                   'Okay',
