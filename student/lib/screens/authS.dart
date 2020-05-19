@@ -277,17 +277,20 @@ class _AuthCardState extends State<AuthCard> {
                   ),
                 ),
                 if (_authMode == AuthMode.Signup)
-                  TextFormField(
-                    enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(labelText: 'Confirm Password'),
-                    obscureText: true,
-                    validator: _authMode == AuthMode.Signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return 'Passwords do not match!';
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TextFormField(
+                      enabled: _authMode == AuthMode.Signup,
+                      decoration: InputDecoration(labelText: 'Confirm Password'),
+                      obscureText: true,
+                      validator: _authMode == AuthMode.Signup
+                          ? (value) {
+                              if (value != _passwordController.text) {
+                                return 'Passwords do not match!';
+                              }
                             }
-                          }
-                        : null,
+                          : null,
+                    ),
                   ),
                 SizedBox(
                   height: 50,

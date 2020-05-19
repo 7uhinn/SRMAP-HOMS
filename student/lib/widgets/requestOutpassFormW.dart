@@ -19,7 +19,6 @@ class RequestOutpassFormWidget extends StatefulWidget {
 class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
   Map<String, Object> newOutpassValues = {
     'outpassID': '',
-    'regID': '',
     'location': '',
     'reqDateTime': DateTime.now().toString(),
     'arrDateTime': DateTime.now(),
@@ -56,7 +55,7 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
       String text =
           '${DateTime.now().year}-0${DateTime.now().month}-0${DateTime.now().day} 19:00:00Z';
 
-      if (!DateTime.now().isAfter(DateTime.parse(text))) {
+      if (DateTime.now().isAfter(DateTime.parse(text))) {
         saveArrDT = DateTime.now().add(Duration(hours: 2));
         arrTime = DateFormat.jm().format(saveArrDT);
         arrDate = DateFormat.yMMMd().format(saveArrDT);
@@ -69,7 +68,7 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
         DateTime.now().month.toInt() < 10) {
       String text =
           '${DateTime.now().year}-0${DateTime.now().month}-${DateTime.now().day} 19:00:00Z';
-      if (!DateTime.now().isAfter(DateTime.parse(text))) {
+      if (DateTime.now().isAfter(DateTime.parse(text))) {
         saveArrDT = DateTime.now().add(Duration(hours: 2));
         print(saveArrDT);
         arrTime = DateFormat.jm().format(saveArrDT);
@@ -84,7 +83,7 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
         DateTime.now().month.toInt() > 10) {
       String text =
           '${DateTime.now().year}-${DateTime.now().month}-0${DateTime.now().day} 19:00:00Z';
-      if (!DateTime.now().isAfter(DateTime.parse(text))) {
+      if (DateTime.now().isAfter(DateTime.parse(text))) {
         saveArrDT = DateTime.now().add(Duration(hours: 2));
         arrTime = DateFormat.jm().format(saveArrDT);
         arrDate = DateFormat.yMMMd().format(saveArrDT);
@@ -96,7 +95,7 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
     } else {
       String text =
           '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day} 19:00:00Z';
-      if (!DateTime.now().isAfter(DateTime.parse(text))) {
+      if (DateTime.now().isAfter(DateTime.parse(text))) {
         saveArrDT = DateTime.now().add(Duration(hours: 2));
         arrTime = DateFormat.jm().format(saveArrDT);
         arrDate = DateFormat.yMMMd().format(saveArrDT);
@@ -255,11 +254,9 @@ class _RequestOutpassFormWidgetState extends State<RequestOutpassFormWidget> {
       });
 
       newOutpassValues['outpassID'] = 'o' + outpassData.length.toString();
-      newOutpassValues['regid'] = 'AP17110010068';
 
       dummy = Outpass(
         outpassID: newOutpassValues['outpassID'],
-        regID: newOutpassValues['regid'],
         location: placeName,
         reqDateTime: newOutpassValues['reqDateTime'],
         arrDateTime: saveArrDT.toString(),

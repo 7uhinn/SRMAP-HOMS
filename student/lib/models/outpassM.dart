@@ -1,6 +1,5 @@
 class Outpass {
   final String outpassID;
-  final String regID;
   final String location;
   final String reqDateTime;
   final String depDateTime;
@@ -9,7 +8,6 @@ class Outpass {
 
   Outpass({
     this.outpassID,
-    this.regID,
     this.location,
     this.reqDateTime,
     this.depDateTime,

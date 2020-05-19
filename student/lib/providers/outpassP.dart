@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -36,6 +35,11 @@ class OutpassProvider with ChangeNotifier {
   //   ),
   ];
 
+  final authToken;
+  final regID;
+
+  OutpassProvider({this.authToken,this.regID});
+
   List<Outpass> get outpassData {
     return [..._outpassData];
   }
@@ -60,7 +64,7 @@ class OutpassProvider with ChangeNotifier {
   }
 
   Future<void> fetchOutpassDataFunction() async {
-    const baseURL = 'https://srmap-homs.firebaseio.com/outpass.json';
+    final baseURL = 'https://srmap-homs.firebaseio.com/users/$regID/outpass.json?auth=$authToken';
     try {
       final response = await http.get(baseURL);
       final data = json.decode(response.body) as Map<String, dynamic>;
@@ -71,7 +75,6 @@ class OutpassProvider with ChangeNotifier {
             Outpass(
               outpassID: id,
               location: value['location'],
-              regID: value['regID'],
               arrDateTime: value['arrDateTime'],
               depDateTime: value['depDateTime'],
               reqDateTime: value['reqDateTime'],
@@ -86,11 +89,10 @@ class OutpassProvider with ChangeNotifier {
   }
 
   Future<void> reqOutpassFunction(Outpass o) async {
-    const baseURL = 'https://srmap-homs.firebaseio.com/outpass.json';
+    final baseURL = 'https://srmap-homs.firebaseio.com/users/$regID/outpass.json?auth=$authToken';
     try {
       final response = await http.post(baseURL,
           body: json.encode({
-            'regID': o.regID,
             'location': o.location,
             'reqDateTime': o.reqDateTime,
             'depDateTime': o.depDateTime,
@@ -99,7 +101,6 @@ class OutpassProvider with ChangeNotifier {
           }));
       final newOutpass = Outpass(
         outpassID: json.decode(response.body)['name'],
-        regID: o.regID,
         location: o.location,
         reqDateTime: o.reqDateTime,
         depDateTime: o.depDateTime,
