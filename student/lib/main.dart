@@ -7,7 +7,8 @@ import 'package:student/widgets/requestOutpassFormW.dart';
 import './providers/outpassP.dart';
 import './screens/requestOutpassS.dart';
 import './screens/outpassListS.dart';
-import './screens/auth_screen.dart';
+import './screens/authS.dart';
+import './providers/authP.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(
           value: OutpassProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: AuthProvider(),
         ),
       ],
       child: MaterialApp(
