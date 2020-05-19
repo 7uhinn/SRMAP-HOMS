@@ -14,52 +14,52 @@ class OutpassListItemWidget extends StatelessWidget {
 
     return outpassData.length != 0
         ? ListView.builder(
-            itemBuilder: (context, idx) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 2.5,
+          itemBuilder: (context, idx) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 2.5,
+              ),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
                 ),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+                elevation: 3,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8,
                   ),
-                  elevation: 3,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8,
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: iconToggler(
-                            outpassData[idx].outpassStatus)['color'],
-                        radius: 25,
-                        child: Icon(
-                          iconToggler(outpassData[idx].outpassStatus)['icon'],
-                          color: Colors.white,
-                          size: 40,
-                        ),
-                      ),
-                      title: Text(
-                        outpassData[idx].location,
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      subtitle: Text(
-                        DateFormat.yMMMEd().format(
-                            DateTime.parse(outpassData[idx].reqDateTime)),
-                        style: Theme.of(context).textTheme.subtitle2,
-                      ),
-                      trailing: Text(
-                        DateFormat.Hm().format(
-                            DateTime.parse(outpassData[idx].reqDateTime)),
-                        style: Theme.of(context).textTheme.subtitle2,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: iconToggler(
+                          outpassData[idx].outpassStatus)['color'],
+                      radius: 25,
+                      child: Icon(
+                        iconToggler(outpassData[idx].outpassStatus)['icon'],
+                        color: Colors.white,
+                        size: 40,
                       ),
                     ),
+                    title: Text(
+                      outpassData[idx].location,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMEd().format(
+                          DateTime.parse(outpassData[idx].reqDateTime)),
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    trailing: Text(
+                      DateFormat.Hm().format(
+                          DateTime.parse(outpassData[idx].reqDateTime)),
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
                   ),
                 ),
-              );
-            },
-            itemCount: outpassData.length,
-          )
+              ),
+            );
+          },
+          itemCount: outpassData.length,
+        )
         : Container(
             width: double.infinity,
             child: Column(

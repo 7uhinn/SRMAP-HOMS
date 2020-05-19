@@ -19,12 +19,57 @@ class _OutpassListScreenState extends State<OutpassListScreen> {
     if (_isInit) {
       Provider.of<OutpassProvider>(context)
           .fetchOutpassDataFunction()
-          .then((_) {
-        _progress = false;
+          .catchError((error) {
+        if (error.toString().contains('NoSuchMethod')) {
+          setState(() {
+            _progress = false;
+          });
+        } else {
+          return showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text(
+                'Oops!',
+                style: TextStyle(
+                  color: Theme.of(ctx).primaryColor,
+                  fontFamily: 'Raleway',
+                ),
+              ),
+              content: Text(
+                'Something went wrong! Check your internet connection.',
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: Text(
+                    'Okay',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+      }).then((_) {
+        setState(() {
+          _progress = false;
+        });
       });
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+
+  Future<void> _refreshScreen(BuildContext context) async {
+    await Provider.of<OutpassProvider>(context, listen: false)
+        .fetchOutpassDataFunction();
   }
 
   @override
@@ -86,7 +131,10 @@ class _OutpassListScreenState extends State<OutpassListScreen> {
                   ),
                 ),
               )
-            : OutpassListItemWidget(),
+            : RefreshIndicator(
+                onRefresh: () => _refreshScreen(context),
+                child: OutpassListItemWidget(),
+              ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:dio/dio.dart';
 
-import '../apiKey.dart';
+import '../API_KEY.dart';
 import '../models/placesM.dart';
 
 class SearchPlacesScreen extends StatefulWidget {
@@ -51,7 +51,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
     String baseURL = 'https://api.tomtom.com/search/2/search';
 
     String request =
-        '$baseURL/$input.json?key=$apiKey&language=en-GB&limit=7&lat=16.437600&lon=80.564600';
+        '$baseURL/$input.json?key=$TOMTOM_API_KEY&language=en-GB&limit=7&lat=16.437600&lon=80.564600';
     Response response = await Dio().get(request);
 
     dynamic data = (response.data);

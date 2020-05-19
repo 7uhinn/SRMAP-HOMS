@@ -7,6 +7,7 @@ import 'package:student/widgets/requestOutpassFormW.dart';
 import './providers/outpassP.dart';
 import './screens/requestOutpassS.dart';
 import './screens/outpassListS.dart';
+import './screens/auth_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,8 +24,12 @@ class MyApp extends StatelessWidget {
       systemNavigationBarIconBrightness: Brightness.dark,
     );
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-    return ChangeNotifierProvider.value(
-      value: OutpassProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: OutpassProvider(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'HOMS',
@@ -43,7 +48,7 @@ class MyApp extends StatelessWidget {
               ),
         ),
         routes: {
-          '/': (context) => OutpassListScreen(),
+          '/': (context) => AuthScreen(),
           RequestOutPassScreen.routeName: (context) => RequestOutPassScreen(),
           RequestOutpassFormWidget.routeName: (context) => RequestOutpassFormWidget(),
           SearchPlacesScreen.routeName: (context) => SearchPlacesScreen(),
