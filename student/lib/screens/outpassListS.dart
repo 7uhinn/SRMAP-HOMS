@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student/providers/outpassP.dart';
+import 'package:student/widgets/SideDrawerW.dart';
 
 import './requestOutpassS.dart';
 import '../widgets/outpassListItemW.dart';
@@ -75,6 +76,7 @@ class _OutpassListScreenState extends State<OutpassListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideDrawerWidget(),
       appBar: AppBar(
         title: Text('Outpass List'),
         elevation: 0,
