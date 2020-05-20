@@ -72,7 +72,7 @@ class SideDrawerWidget extends StatelessWidget {
             thickness: 1,
           ),
           buildListTile(
-            'About',
+            'About Us',
             Icons.code,
             5,
             20,
