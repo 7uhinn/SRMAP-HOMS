@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../screens/aboutS.dart';
+import '../screens/userProfileS.dart';
+
 class SideDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget buildListTile(String title, IconData icon, double el, double ra) {
+    Widget buildListTile(String title, IconData icon, double el, double ra, Function tapHandler) {
       return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Card(
@@ -24,9 +27,7 @@ class SideDrawerWidget extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            onTap: () {
-              // ...
-            },
+            onTap: tapHandler,
           ),
         ),
       );
@@ -41,7 +42,9 @@ class SideDrawerWidget extends StatelessWidget {
               padding: EdgeInsets.all(00),
               alignment: Alignment.bottomLeft,
               //color: Theme.of(context).accentColor,
-              child: buildListTile('Profile', Icons.account_circle, 7, 20),
+              child: buildListTile('Profile', Icons.account_circle, 7, 20, () {
+                Navigator.of(context).pushReplacementNamed(UserProfileScreen.routeName);  
+              }),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -60,6 +63,9 @@ class SideDrawerWidget extends StatelessWidget {
             Icons.list,
             5,
             20,
+            () {
+              Navigator.of(context).pushReplacementNamed('/'); 
+            }
           ),
           Divider(
             color: Theme.of(context).primaryColor,
@@ -70,6 +76,9 @@ class SideDrawerWidget extends StatelessWidget {
             Icons.code,
             5,
             20,
+            () {
+              Navigator.of(context).pushReplacementNamed(AboutScreen.routeName); 
+            }
           ),
           Divider(
             color: Theme.of(context).primaryColor,

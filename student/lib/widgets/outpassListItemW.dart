@@ -31,11 +31,12 @@ class OutpassListItemWidget extends StatelessWidget {
                       'status': outpassData[idx].outpassStatus,
                     },
                   ),
+                  splashColor: Colors.grey,
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),
-                    elevation: 3,
+                    elevation: 6,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: 8,

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:student/models/outpassM.dart';
-import 'package:student/screens/outpassDetailsS.dart';
 
+import './screens/aboutS.dart';
+import './screens/outpassDetailsS.dart';
+import './screens/userProfileS.dart';
 import './providers/userP.dart';
 import './screens/placesSearchS.dart';
 import './widgets/requestOutpassFormW.dart';
@@ -73,6 +74,8 @@ class MyApp extends StatelessWidget {
                 RequestOutpassFormWidget(),
             SearchPlacesScreen.routeName: (context) => SearchPlacesScreen(),
             OutpassDetailsScreen.routeName: (context) => OutpassDetailsScreen(),
+            AboutScreen.routeName: (context) => AboutScreen(),
+            UserProfileScreen.routeName: (context) => UserProfileScreen(),
           },
         ),
       ),

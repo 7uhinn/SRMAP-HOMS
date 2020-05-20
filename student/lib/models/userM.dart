@@ -4,7 +4,7 @@ class User {
   final int gradYear;
   final int hostelNum;
   final int roomNum;
-  final List<int> phoneNum;
+  final int phoneNum;
 
   User({
     this.regID,
