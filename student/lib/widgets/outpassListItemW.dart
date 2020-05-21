@@ -29,6 +29,7 @@ class OutpassListItemWidget extends StatelessWidget {
                       'depDateTime': outpassData[idx].depDateTime,
                       'arrDateTime': outpassData[idx].arrDateTime,
                       'status': outpassData[idx].outpassStatus,
+                      'id': outpassData[idx].outpassID.toString(),
                     },
                   ),
                   splashColor: Colors.grey,
@@ -42,14 +43,18 @@ class OutpassListItemWidget extends StatelessWidget {
                         vertical: 8,
                       ),
                       child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: iconToggler(
-                              outpassData[idx].outpassStatus)['color'],
-                          radius: 25,
-                          child: Icon(
-                            iconToggler(outpassData[idx].outpassStatus)['icon'],
-                            color: Colors.white,
-                            size: 40,
+                        leading: Hero(
+                          tag: outpassData[idx].outpassID.toString(),
+                          child: CircleAvatar(
+                            backgroundColor: iconToggler(
+                                outpassData[idx].outpassStatus)['color'],
+                            radius: 25,
+                            child: Icon(
+                              iconToggler(
+                                  outpassData[idx].outpassStatus)['icon'],
+                              color: Colors.white,
+                              size: 40,
+                            ),
                           ),
                         ),
                         title: Text(

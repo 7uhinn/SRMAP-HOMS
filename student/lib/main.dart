@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import './helpers/custom_route.dart';
 import './screens/aboutS.dart';
 import './screens/outpassDetailsS.dart';
 import './screens/userProfileS.dart';
@@ -65,6 +66,12 @@ class MyApp extends StatelessWidget {
                     fontSize: 16,
                     fontFamily: 'Raleway',
                   ),
+                ),
+            pageTransitionsTheme: PageTransitionsTheme(
+                  builders: {
+                    TargetPlatform.android: CustomPageTransitionBuilder(),
+                    TargetPlatform.iOS: CustomPageTransitionBuilder(),
+                  },
                 ),
           ),
           routes: {

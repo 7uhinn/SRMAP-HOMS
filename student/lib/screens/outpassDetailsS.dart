@@ -161,13 +161,16 @@ class OutpassDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        CircleAvatar(
-                          backgroundColor: baseColor,
-                          radius: 35.0,
-                          child: Icon(
-                            icon,
-                            size: 80,
-                            color: Colors.white,
+                        Hero(
+                          tag: outpassData['id'],
+                          child: CircleAvatar(
+                            backgroundColor: baseColor,
+                            radius: 35.0,
+                            child: Icon(
+                              icon,
+                              size: 80,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         Column(
