@@ -81,16 +81,21 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
     final userp = Provider.of<UserProvider>(context);
     final user = userp.user;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        buildNameTiles('Name:', user[0].name),
-        buildNameTiles('Registration Number:', user[0].regID),
-        buildNameTiles('Graduation Year:', user[0].gradYear.toString()),
-        buildNameTiles('Hostel:', hostelName(user[0].hostelNum.toInt())),
-        buildNameTiles('Room Number:', user[0].roomNum.toString()),
-        buildNameTiles('Phone Numbers:', user[0].phoneNum.toString()),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20.0,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          buildNameTiles('Name:', user[0].name),
+          buildNameTiles('Registration Number:', user[0].regID),
+          buildNameTiles('Graduation Year:', user[0].gradYear.toString()),
+          buildNameTiles('Hostel:', hostelName(user[0].hostelNum.toInt())),
+          buildNameTiles('Room Number:', user[0].roomNum.toString()),
+          buildNameTiles('Phone Numbers:', user[0].phoneNum.toString()),
+        ],
+      ),
     );
   }
 }

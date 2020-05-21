@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:student/widgets/userProfileCardW.dart';
 
+import '../providers/authP.dart';
+import '../widgets/userProfileCardW.dart';
 import '../widgets/SideDrawerW.dart';
 import '../providers/userP.dart';
 
@@ -113,7 +114,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 right: 15,
                 top: 50,
               ),
-              height: 500,
+              height: MediaQuery.of(context).size.height -
+                  appBar.preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  100,
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -134,33 +138,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     : UserProfileCardWidget(),
               ),
             ),
-            Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                onPressed: () {},
-                color: Colors.white,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 20,
-                  ),
-                  child: Text(
-                    'Log Out',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 20,
-                      fontFamily: 'Raleway',
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 50,
-            )
           ],
         ),
       ),

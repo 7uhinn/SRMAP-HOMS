@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:student/providers/authP.dart';
 
 import '../screens/aboutS.dart';
 import '../screens/userProfileS.dart';
@@ -78,6 +80,21 @@ class SideDrawerWidget extends StatelessWidget {
             20,
             () {
               Navigator.of(context).pushReplacementNamed(AboutScreen.routeName); 
+            }
+          ),
+          Divider(
+            color: Theme.of(context).primaryColor,
+            thickness: 1,
+          ),
+          buildListTile(
+            'Log Out',
+            Icons.exit_to_app,
+            5,
+            20,
+            () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/');
+              Provider.of<AuthProvider>(context, listen:false).logout(); 
             }
           ),
           Divider(
