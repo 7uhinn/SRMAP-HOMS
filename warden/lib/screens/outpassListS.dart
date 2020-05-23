@@ -84,7 +84,7 @@ class _OutpassListScreenState extends State<OutpassListScreen> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.lightBlue[800],
+                Colors.orangeAccent,
                 Theme.of(context).primaryColor,
               ],
               begin: Alignment.centerLeft,
@@ -97,7 +97,7 @@ class _OutpassListScreenState extends State<OutpassListScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.lightBlue[800],
+              Colors.orangeAccent,
               Theme.of(context).primaryColor,
             ],
             begin: Alignment.centerLeft,

@@ -90,7 +90,7 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
         children: <Widget>[
           buildNameTiles('Name:', user[0].name),
           buildNameTiles('Registration Number:', user[0].regID),
-          buildNameTiles('Graduation Year:', user[0].gradYear.toString()),
+          buildNameTiles('Joining Year:', user[0].joinYear.toString()),
           buildNameTiles('Hostel:', hostelName(user[0].hostelNum.toInt())),
           buildNameTiles('Room Number:', user[0].roomNum.toString()),
           buildNameTiles('Phone Numbers:', user[0].phoneNum.toString()),

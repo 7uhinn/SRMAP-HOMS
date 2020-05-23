@@ -50,7 +50,7 @@ class SideDrawerWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.lightBlue[800],
+                    Colors.orangeAccent,
                     Theme.of(context).primaryColor,
                   ],
                   begin: Alignment.bottomLeft,

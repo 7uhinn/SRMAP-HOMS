@@ -7,9 +7,9 @@ import 'dart:convert';
 class UserProvider with ChangeNotifier {
   List<User> _signedInUser = [];
   final authToken;
-  final regID;
+  final wRegID;
 
-  UserProvider({this.regID, this.authToken});
+  UserProvider({this.wRegID, this.authToken});
 
   List<User> get user {
     return [..._signedInUser];
@@ -17,7 +17,7 @@ class UserProvider with ChangeNotifier {
 
   Future<void> fetchUserDataFunction() async {
     final baseURL =
-        'https://srmap-homs.firebaseio.com/users/$regID.json?auth=$authToken';
+        'https://srmap-homs.firebaseio.com/warden/$wRegID.json?auth=$authToken';
     print(baseURL);
     try {
       final response = await http.get(baseURL);
@@ -26,8 +26,8 @@ class UserProvider with ChangeNotifier {
       final List<User> dl = [];
       data.forEach((id, value) {
         dl.add(User(
-          regID: regID,
-          gradYear: data['gradYear'],
+          regID: wRegID,
+          joinYear: data['joinYear'],
           name: data['name'],
           hostelNum: data['hostelNum'],
           roomNum: data['roomNum'],

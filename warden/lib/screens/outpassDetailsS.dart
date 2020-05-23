@@ -5,8 +5,16 @@ import 'package:provider/provider.dart';
 import '../widgets/topContainerW.dart';
 import '../providers/outpassP.dart';
 
-class OutpassDetailsScreen extends StatelessWidget {
+class OutpassDetailsScreen extends StatefulWidget {
   static const routeName = '/outpass-details';
+
+  @override
+  _OutpassDetailsScreenState createState() => _OutpassDetailsScreenState();
+}
+
+class _OutpassDetailsScreenState extends State<OutpassDetailsScreen> {
+  bool _progress1 = false;
+  bool _progress2 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +23,37 @@ class OutpassDetailsScreen extends StatelessWidget {
 
     final outpassDataProvider = Provider.of<OutpassProvider>(context);
     final iconToggler = outpassDataProvider.iconToggler;
-    final regID = outpassDataProvider.regID;
 
     double width = MediaQuery.of(context).size.width;
-    Color baseColor = iconToggler(outpassData['status'])['color'];
-    IconData icon = iconToggler(outpassData['status'])['icon'];
+    Color baseColor = iconToggler(outpassData['outpassStatus'])['color'];
+    IconData icon = iconToggler(outpassData['outpassStatus'])['icon'];
+
+    Widget buildNameTiles(String tag, String value) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+        ),
+        child: ListTile(
+          title: Text(
+            tag,
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle: Text(
+            value,
+            style: TextStyle(
+              fontFamily: 'Raleway',
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+        ),
+      );
+    }
 
     Widget buildListTile(IconData icon, String text, String date, Color col) {
       return Column(
@@ -27,13 +61,13 @@ class OutpassDetailsScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(
-              vertical: 12,
+              vertical: 0,
               horizontal: 30,
             ),
             child: Text(
               text,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Montserrat',
@@ -119,11 +153,6 @@ class OutpassDetailsScreen extends StatelessWidget {
               ),
             ],
           ),
-          Divider(
-            color: Theme.of(context).primaryColor,
-            endIndent: 10,
-            indent: 10,
-          )
         ],
       );
     }
@@ -162,7 +191,7 @@ class OutpassDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Hero(
-                          tag: outpassData['id'],
+                          tag: outpassData['outpassID'],
                           child: CircleAvatar(
                             backgroundColor: baseColor,
                             radius: 35.0,
@@ -192,7 +221,7 @@ class OutpassDetailsScreen extends StatelessWidget {
                             ),
                             Container(
                               child: Text(
-                                regID,
+                                outpassData['regID'],
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 18.0,
@@ -217,21 +246,198 @@ class OutpassDetailsScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SizedBox(
-                    height: 20,
+                  buildNameTiles(
+                    'Name:',
+                    outpassData['name'],
+                  ),
+                  buildNameTiles(
+                    'Room Number:',
+                    outpassData['roomNum'].toString(),
+                  ),
+                  buildNameTiles(
+                    'Phone Number:',
+                    outpassData['phoneNum'].toString(),
                   ),
                   buildListTile(Icons.alarm_add, 'Requested Date/Time:',
                       outpassData['reqDateTime'], Colors.white),
-                  SizedBox(
-                    height: 20,
-                  ),
                   buildListTile(Icons.arrow_upward, 'Departure Date/Time:',
                       outpassData['depDateTime'], Colors.white),
-                  SizedBox(
-                    height: 20,
-                  ),
                   buildListTile(Icons.arrow_downward, 'Arrival Date/Time:',
                       outpassData['arrDateTime'], Colors.white),
+                  if (outpassData['outpassStatus'] == 'Pending')
+                    Container(
+                      width: width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            width: width / 2,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: RaisedButton(
+                              child: _progress1
+                                  ? Container(
+                                      height: 15,
+                                      width: 15,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 3,
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Approve',
+                                      style: TextStyle(
+                                        fontFamily: 'Raleway',
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                              onPressed: () {
+                                setState(() {
+                                  _progress1 = true;
+                                });
+
+                                outpassDataProvider
+                                    .decisionOutpass(
+                                  outpassData['regID'],
+                                  outpassData['outpassID'],
+                                  true,
+                                )
+                                    .catchError((error) {
+                                  return showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: Text(
+                                        'Oops!',
+                                        style: TextStyle(
+                                          color: Theme.of(ctx).primaryColor,
+                                          fontFamily: 'Raleway',
+                                        ),
+                                      ),
+                                      content: Text(
+                                        'Something went wrong! Check your internet connection.',
+                                        style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(ctx).pop();
+                                          },
+                                          child: Text(
+                                            'Okay',
+                                            style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }).then((_) {
+                                  setState(() {
+                                    _progress1 = false;
+                                  });
+                                  Navigator.of(context).pop();
+                                });
+                              },
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 30.0, vertical: 8.0),
+                              color: Colors.green,
+                            ),
+                          ),
+                          Container(
+                            width: width / 2,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: RaisedButton(
+                              child: _progress2
+                                  ? Container(
+                                      height: 15,
+                                      width: 15,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 3,
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Disapprove',
+                                      style: TextStyle(
+                                        fontFamily: 'Raleway',
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                              onPressed: () {
+                                setState(() {
+                                  _progress2 = true;
+                                });
+
+                                outpassDataProvider
+                                    .decisionOutpass(
+                                  outpassData['regID'],
+                                  outpassData['outpassID'],
+                                  false,
+                                )
+                                    .catchError((error) {
+                                  return showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: Text(
+                                        'Oops!',
+                                        style: TextStyle(
+                                          color: Theme.of(ctx).primaryColor,
+                                          fontFamily: 'Raleway',
+                                        ),
+                                      ),
+                                      content: Text(
+                                        'Something went wrong! Check your internet connection.',
+                                        style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(ctx).pop();
+                                          },
+                                          child: Text(
+                                            'Okay',
+                                            style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }).then((_) {
+                                  setState(() {
+                                    _progress2 = false;
+                                  });
+                                  Navigator.of(context).pop();
+                                });
+                              },
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 30.0, vertical: 8.0),
+                              color: Colors.red,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      ),
+                    ),
                 ],
               ),
             )

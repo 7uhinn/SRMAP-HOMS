@@ -1,7 +1,7 @@
 class User {
   final String regID;
   final String name;
-  final int gradYear;
+  final int joinYear;
   final int hostelNum;
   final int roomNum;
   final int phoneNum;
@@ -9,7 +9,7 @@ class User {
   User({
     this.regID,
     this.name,
-    this.gradYear,
+    this.joinYear,
     this.hostelNum,
     this.roomNum,
     this.phoneNum,

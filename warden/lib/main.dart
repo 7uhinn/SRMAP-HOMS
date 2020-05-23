@@ -36,14 +36,14 @@ class MyApp extends StatelessWidget {
           create: (context) => UserProvider(),
           update: (context, auth, prev) => UserProvider(
             authToken: auth.token,
-            regID: auth.regID,
+            wRegID: auth.wRegID,
           ),
         ),
         ChangeNotifierProxyProvider<AuthProvider, OutpassProvider>(
           create: (context) => OutpassProvider(),
           update: (context, auth, prev) => OutpassProvider(
             authToken: auth.token,
-            regID: auth.regID,
+            hostelNum: auth.hostelNum,
           ),
         )
       ],
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'HOMS',
           theme: ThemeData(
-            primarySwatch: Colors.purple,
+            primarySwatch: Colors.red,
             fontFamily: 'Montserrat',
             textTheme: ThemeData.light().textTheme.copyWith(
                   subtitle2: TextStyle(
@@ -65,11 +65,11 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
             pageTransitionsTheme: PageTransitionsTheme(
-                  builders: {
-                    TargetPlatform.android: CustomPageTransitionBuilder(),
-                    TargetPlatform.iOS: CustomPageTransitionBuilder(),
-                  },
-                ),
+              builders: {
+                TargetPlatform.android: CustomPageTransitionBuilder(),
+                TargetPlatform.iOS: CustomPageTransitionBuilder(),
+              },
+            ),
           ),
           routes: {
             '/': (context) => auth.isAuth ? OutpassListScreen() : AuthScreen(),
