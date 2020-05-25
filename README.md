@@ -1,3 +1,3 @@
 # SRMAP HOMS
 
-Page under construction!
+Page under construction.
